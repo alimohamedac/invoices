@@ -21,7 +21,8 @@ Route::get('/', function () {
 });
 require __DIR__.'/auth.php';
 Route::get('/invoices', [InvoiceController::class, 'index'])->name('invoices');
-Route::get('/sections', [SectionController::class, 'index'])->name('sections');
+//Route::get('/sections', [SectionController::class, 'index'])->name('sections');
+Route::resource('sections', SectionController::class);
 
 Route::get('/{page}', [AdminController::class, 'index']);
 Route::get('/dashboard', function () {

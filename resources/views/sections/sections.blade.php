@@ -12,26 +12,46 @@
     <link href="{{URL::asset('assets/plugins/select2/css/select2.min.css')}}" rel="stylesheet">
 @endsection
 @section('page-header')
-				<!-- breadcrumb -->
-				<div class="breadcrumb-header justify-content-between">
-					<div class="my-auto">
-						<div class="d-flex">
-							<h4 class="content-title mb-0 my-auto">الاعدادات</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ {{ trans('invoices.modules.sections.sections') }}</span>
-						</div>
-					</div>
-				</div>
-				<!-- breadcrumb -->
+        <!-- breadcrumb -->
+        <div class="breadcrumb-header justify-content-between">
+            <div class="my-auto">
+                <div class="d-flex">
+                    <h4 class="content-title mb-0 my-auto">الاعدادات</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ {{ trans('invoices.modules.sections.sections') }}</span>
+                </div>
+            </div>
+        </div>
+        <!-- breadcrumb -->
 @endsection
 @section('content')
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    @if (session()->has('Add'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ session()->get('Add') }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
 				<!-- row -->
 				<div class="row">
                     <div class="col-xl-12">
                         <div class="card mg-b-20">
-                            <div class="card-header pb-0">
-                                <div class="d-flex justify-content-between">
-                                    <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale" data-toggle="modal" href="#modaldemo8">Scale</a>
+                            @if (Auth::user())
+                                <div class="card-header pb-0">
+                                    <div class="d-flex justify-content-between">
+                                        <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale" data-toggle="modal" href="#modaldemo8">Scale</a>
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table id="example" class="table key-buttons text-md-nowrap">
@@ -64,8 +84,24 @@
                                     <h6 class="modal-title">Basic Modal</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
                                 </div>
                                 <div class="modal-body">
-                                    <h6>Modal Body</h6>
-                                    <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+                                    <form action="{{ route('sections.store') }}" method="post">
+                                        {{ csrf_field() }}
+
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">اسم القسم</label>
+                                            <input type="text" class="form-control" id="section_name" name="section_name">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="exampleFormControlTextarea1">ملاحظات</label>
+                                            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-success">تاكيد</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">اغلاق</button>
+                                        </div>
+                                    </form>
                                 </div>
                                 <div class="modal-footer">
                                     <button class="btn ripple btn-primary" type="button">Save changes</button>
