@@ -58,18 +58,20 @@
                                         <thead>
                                         <tr>
                                             <th class="border-bottom-0">#</th>
-                                            <th class="border-bottom-0">رقم الفاتورة</th>
-                                            <th class="border-bottom-0">تاريخ الاستحقاق</th>
+                                            <th class="border-bottom-0">اسم القسم</th>
                                             <th class="border-bottom-0">ملاحظات</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                        </tr>
+                                            <?php $i=0 ?>
+                                            @foreach($sections as $section)
+                                                <?php $i++ ?>
+                                                <tr>
+                                                    <td>{{ $i }}</td>
+                                                    <td>{{ $section->section_name }}</td>
+                                                    <td>{{ $section->description }}</td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -102,10 +104,6 @@
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">اغلاق</button>
                                         </div>
                                     </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button class="btn ripple btn-primary" type="button">Save changes</button>
-                                    <button class="btn ripple btn-secondary" data-dismiss="modal" type="button">Close</button>
                                 </div>
                             </div>
                         </div>
