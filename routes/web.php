@@ -21,11 +21,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 require __DIR__.'/auth.php';
-Route::get('/invoices', [InvoiceController::class, 'index'])->name('invoices');
 //Route::get('/sections', [SectionController::class, 'index'])->name('sections');
+Route::resource('invoices', InvoiceController::class);
 Route::resource('sections', SectionController::class);
 Route::resource('products', ProductController::class);
-
+Route::get('/section/{id}', [InvoiceController::class, 'getProducts'])->name('Get Products');
 /*Route::resource('sections',
     SectionController::class,
     [

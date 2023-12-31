@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->string('product_name', 800);
             $table->text('description')->nullable();
             $table->unsignedBigInteger('section_id');
-            $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade');
+            $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade'); // delete section => delete products belongs to
             $table->timestamps();
         });
     }
