@@ -10,6 +10,7 @@ use App\Models\Section;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class InvoiceController extends Controller
 {
@@ -155,12 +156,22 @@ class InvoiceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Invoice $invoice
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Invoice $invoice)
+    public function destroy(Request $request)
     {
-        //
+        $id = $request->invoice_id;
+        $invoice = Invoice::where('id', $id)->first();
+        $attachments = InvoiceAttachments::where('invoice_id', $id)->first();
+
+        if (!empty($attachments->invoice_number)) {
+            Storage::disk('public_uploads')->deleteDirectory($attachments->invoice_number);  //delete folder of attachments
+        }
+
+        $invoice->forceDelete();
+        session()->flash('delete_invoice');
+        return redirect('/invoices');
     }
 
     public function getProducts($id)

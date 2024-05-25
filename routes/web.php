@@ -37,6 +37,7 @@ Route::get('/view_file/{invoice_number}/{file_name}', [InvoiceDetailsController:
 Route::post('/delete_file', [InvoiceDetailsController::class, 'destroy'])->name('deleteFile');
 
 Route::get('/edit_invoice/{id}', [InvoiceController::class, 'edit'])->name('editInvoice');
+//Route::post('/destroy/{id}', [InvoiceController::class, 'destroy'])->name('invoices.destroy');
 
 /*Route::resource('sections',
     SectionController::class,
