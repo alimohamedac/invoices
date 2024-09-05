@@ -41,7 +41,6 @@ class Invoice extends Model
     public function isPaid(): bool
     {
         return $this->status == InvoiceStatus::Paid;
-
     }
 
     /**
@@ -50,6 +49,5 @@ class Invoice extends Model
     public function isUnpaid(): bool
     {
         return $this->status == InvoiceStatus::Unpaid;
-
     }
 }
